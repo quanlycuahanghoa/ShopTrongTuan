@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Project.Models
+@using PagedList.Mvc
+@model  List<GroupUserModels>
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="breadcrumb-holder">
+            <h1 class="main-title float-left">Quản lý người dùng</h1>
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item">Trang chủ</li>
+                <li class="breadcrumb-item active">Người dùng</li>
+                <li class="breadcrumb-item active">Nhóm Người Dùng</li>
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+        <div class="card mb-3">
+
+            <div class="card-header">
+                <span class="pull-right">
+                    @*<button class="btn btn-primary btn-sm" onclick="Datahiden()">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i> Thêm mới
+                        </button>*@
+                    <button class="btn btn-primary btn-sm" onclick="window.location='/User/Index'" >
+                        <i class="fa fa-caret-square-o-down bigfonts" aria-hidden="true"></i> Trở Về
+                    </button>
+                </span>
+                <h3><i class="fa fa-user"></i> Số Lượng @Model.Count()</h3>
+            </div>
+            <!-- end card-header -->
+            <!-- <div class="card-bodycard-body"> -->
+
+
+            <div class="table-responsive" id="Table_GroupUser">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width:50px">ID</th>
+                            <th>Tên Nhóm</th>
+                            <th>Ngày Tạo</th>
+                            <th>Người Tạo</th>
+                            <th>Ngày Cập Nhập</th>
+                            <th>Người Cập Nhập</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+
+                            int stt = 0;
+                            foreach (GroupUserModels gr in Model)
+                            {
+                                stt++;
+                                <tr>
+                                    <th>
+                                        @stt
+                                    </th>
+
+                                    <td>
+                                        @gr.GroupName
+                                    </td>
+
+                                    <td>@gr.GetStringCreateDate</td>
+                                    <td>@gr.CreatedBy</td>
+                                    <td>@gr.GetStringModifiedDate</td>
+                                    <td>@gr.ModifiedBy</td>
+
+                                </tr>
+                            }
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!-- end card-body -->
+
+    </div>
+    <!-- end card -->
+
+</div>
+

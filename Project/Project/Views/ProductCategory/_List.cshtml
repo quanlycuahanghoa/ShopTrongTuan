@@ -1,0 +1,99 @@
+﻿
+@using Project.Models
+@using PagedList.Mvc
+@model  PagedList.IPagedList<GetProductCategoryModels>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Ảnh Loại SP</th>
+            <th>Tên Nhóm</th>
+            <th>Tên Nhóm Cha </th>
+            <th>Vị Trí</th>
+            <th>Người Tạo</th>
+            <th>Người Cập Nhập</th>
+            <th >Show Page</th>
+            <th >Trang thái</th>
+            <th style="width:130px">Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+
+            int stt = 0;
+            foreach (GetProductCategoryModels data in Model)
+            {
+                stt++;
+                <tr>
+                    <th>
+                        @stt
+                    </th>
+                    <td>
+                        <img style="height:15%;width:auto" src="@data.GetImage()" />
+                    </td>
+                    <td>
+                        @data.Name
+                    </td>
+                    <td>@data.GetParentName()</td>
+                    <td>@data.DisplayOrder</td>
+                    <td>@data.CreatedBy</td>
+                    <td>@data.ModifiedBy</td>
+
+                    <td>
+                        @if (@data.ShowOnHome == true)
+                        {
+
+                            <span class="textStatus">Có</span>
+                        }
+
+                        @if (@data.ShowOnHome == false)
+                        {
+                            <span class="textNoStatus">Không</span>
+                        }
+                    </td>
+
+                    <td>
+                        @if (@data.Status == true)
+                        {
+                            <span class="textStatus">Kích Hoạt</span>
+                        }
+
+                        @if (@data.Status == false)
+                        {
+                            <span class="textNoStatus">Khóa TK</span>
+                        }
+                    </td>
+                    <td style="width:20px">
+                        <div class="row">
+                            <a class="btn btn-primary btn-sm mr-3" onclick="window.location='/ProductCategory/Update?ProductCategoryId=@data.ID'" title="Sửa"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a class="btn btn-danger btn-sm" onclick="ShowFromDeletePrductCategory(@data.ID)" title="Xóa"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="row mt-3" >
+                            <a class="btn btn-warning btn-sm mr-3" onclick="window.location='/ProductCategory/Update?ProductCategoryId=@data.ID'" title="Chi tiết"><i class="fa fa-sticky-note-o bigfonts" aria-hidden="true"></i></a>
+                            <a class="btn btn-success btn-sm" onclick="Edit_ProductCategoryShow()" title="Bài viết"><i class="fa fa-file-word-o bigfonts" aria-hidden="true"></i></a>
+                        </div>
+                       
+                      
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+<div class="row ">
+    <div class="offset-6 ">
+        @Html.PagedListPager(Model, Page => Url.Action("Seach", new { Page = 1, ProductCategoryName = ""}), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+   {
+       HttpMethod = "GET",
+       UpdateTargetId = "Table_ProductCategory"
+   }
+
+           ))
+
+    </div>
+</div>
+<script type="text/javascript">
+
+</script>

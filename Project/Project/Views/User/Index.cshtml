@@ -1,0 +1,322 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="breadcrumb-holder">
+            <h1 class="main-title float-left">Quản lý người dùng</h1>
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item">Trang chủ</li>
+                <li class="breadcrumb-item active">Người dùng</li>
+                <li class="breadcrumb-item active">Danh sách</li>
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<div class="alert alert-success " role="alert">
+    <div class="row ">
+        <div class="col-12 col-xl-3 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <input class="form-control" name="NameUser" type="text" placeholder="Họ Tên" id="txtSeachNameUser" />
+            </div>
+        </div>
+        <div class="col-12 col-xl-3 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <input class="form-control" name="UserName" type="text" placeholder="Tài Khoản" id="txtSeachUserName" />
+            </div>
+        </div>
+        <div class="col-12 col-xl-3 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <input class="form-control" name="PhoneUser" type="text" placeholder="Điện Thoại" id="txtSeachPhoneUser" />
+            </div>
+        </div>
+        <div class="col-12 col-xl-3 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+
+                <select name="role_id" class="form-control" id="txtSeachGroupUser">
+                    <option value="0">- Chọn Nhóm -</option>
+
+                </select>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+
+        <button class="btn btn-primary offset-5" onclick="SeachUser()">
+            <i class="fa fa-search" aria-hidden="true"></i> Tìm kiếm người dùng
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+        <div class="card mb-3">
+
+            <div class="card-header">
+                <span class="pull-right">
+                    <button class="btn btn-primary btn-sm" onclick="Datahiden()">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i> Thêm mới
+                    </button>
+                    <button class="btn btn-primary btn-sm" onclick="window.location='/GroupUser/Index'">
+                        <i class="fa fa-caret-square-o-down bigfonts" aria-hidden="true"></i> Nhóm ND
+                    </button>
+                </span>
+                <h3><i class="fa fa-user"></i> Số Lượng</h3>
+            </div>
+            <!-- end card-header -->
+            <!-- <div class="card-bodycard-body"> -->
+
+
+            <div class="table-responsive" id="Table_User">
+                @{
+                    Html.RenderAction("Seach", new { Page = 1, FullName = "", UserName = "" });
+                }
+            </div>
+
+        </div>
+        <!-- end card-body -->
+
+    </div>
+    <!-- end card -->
+
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="Modal_EditUser">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="Form_EditUser">
+
+                <input class="form-control" name="ID" type="hidden" required id="txtEditIdUser" />
+                <div class="modal-header">
+                    <h5 class="modal-title">Cập nhập người dùng</h5>
+                    <button type="button" class="close" data-dismiss="modal" onclick="ExitEditUser()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Họ tên</label>
+                                <input class="form-control" name="Name" type="text" required id="txtEditNameUser" />
+                            </div>
+                        </div>
+                    </div>
+
+                    @*tên tài khoản và địa chỉ*@
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Tài khoản</label>
+                                <input class="form-control" name="UserName" type="text" required id="txtEditUserName" />
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Mật Khẩu</label>
+                                <input class="form-control" name="Password" type="text" required id="txtEditPass" />
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Emaill và số điện thoại*@
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input class="form-control" name="Email" type="email" required id="txtEditEmail" />
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Điện thoại</label>
+                                <input class="form-control" name="Phone" type="text" required id="txtEditPhone" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Nhóm</label>
+                                <select name="GroupId" class="form-control" required id="txtEditGroupUser">
+                                    <option value="">- Chọn Nhóm-</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Trang Thái</label>
+                                <select name="Status" class="form-control" id="txtEditStatusUser">
+                                    <option value="true">Kích Hoạt</option>
+                                    <option value="false">Khóa TK</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="EditUser()">Cập nhập</button>
+                    <button type="button" class="btn btn-danger" onclick="CloseModalEditUser()">Thoát</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" tabindex="-1" role="dialog" id="Modal_AdđUser">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="FormAdd_User">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm mới người dùng</h5>
+                    <button type="button" class="close" data-dismiss="modal" onclick="ExitAddUser()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Họ tên</label>
+                                <input class="form-control" name="Name" type="text" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    @*tên tài khoản và địa chỉ*@
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Tài khoản</label>
+                                <input class="form-control" name="UserName" type="text" required />
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Mật Khẩu</label>
+                                <input class="form-control" name="Password" type="text" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Emaill và số điện thoại*@
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input class="form-control" name="Email" type="email" required />
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Điện thoại</label>
+                                <input class="form-control" name="Phone" type="text" required />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Nhóm</label>
+                                <select name="GroupId" class="form-control" required id="SelectAddGroupIdUser">
+                                    <option value="">- select -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Trang Thái</label>
+                                <select name="Status" class="form-control">
+                                    <option value="true">Kích Hoạt</option>
+                                    <option value="false">Khóa TK</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="AddUser()">Thêm Mới</button>
+                    <button type="button" class="btn btn-danger" onclick="ExitAddUser()">Thoát</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" tabindex="-1" role="dialog" id="Delete_Users">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CloseDeleteUser()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn xóa thông tin người dùng</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="DelUser()">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function Datahiden() {
+        $("#Modal_AdđUser").show();
+    }
+
+    function ExitAddUser() {
+        $("#Modal_AdđUser").hide();
+    }
+
+    function OpenModalEditUser() {
+        $("#Modal_EditUser").show();
+    }
+
+    function ExitEditUser() {
+        $("#Modal_EditUser").hide();
+    }
+
+    function CloseDeleteUser() {
+        $("#Delete_Users").hide();
+    }
+</script>

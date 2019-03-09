@@ -1,0 +1,301 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="breadcrumb-holder">
+            <h1 class="main-title float-left">QUẢN LÝ LOẠI SẢN PHẨM</h1>
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item">Trang chủ</li>
+                <li class="breadcrumb-item active">Sản Phẩm</li>
+                <li class="breadcrumb-item active">Nhóm Sản Phẩm</li>
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<!-- end row -->
+<div class="alert alert-success " role="alert">
+    <div class="row offset-md-10">
+        <div class="col-12 col-xl-2 col-sm-12 col-md-12 col-lg-2">
+
+        </div>
+        <div class="col-12 col-xl-3 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+
+                <select name="role_id" class="form-control txtSeachGroupProductCategory" id="txtSeachGroupProductCategory">
+                    <option value="0">- Chọn doanh mục gốc -</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="col-12 col-xl-3 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <input class="form-control" name="NameProductCategory" type="text" placeholder="Tên loại sản phẩm" id="txtSeachNameProductCategory" />
+            </div>
+        </div>
+
+        <div class="col-12 col-xl-3 col-sm-12 col-md-4 col-lg-4">
+            <button class="btn btn-primary" onclick="SeachProductCategory()">
+                <i class="fa fa-search" aria-hidden="true"></i> Tìm kiếm Loại SP
+            </button>
+        </div>
+
+    </div>
+    <div class="row">
+
+    </div>
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+        <div class="card mb-3">
+
+            <div class="card-header">
+                <span class="pull-right">
+                    <button class="btn btn-primary btn-sm" onclick="window.location='/ProductCategory/'">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i> Thêm mới
+                    </button>
+                    <button class="btn btn-primary btn-sm" onclick="window.location='/Product/Index'">
+                        <i class="fa fa-caret-square-o-down bigfonts" aria-hidden="true"></i> Nhóm ND
+                    </button>
+                </span>
+                <h3><i class="fa fa-user"></i> Số Lượng</h3>
+            </div>
+            <!-- end card-header -->
+            <!-- <div class="card-bodycard-body"> -->
+
+
+            <div class="table-responsive" id="Table_ProductCategory">
+                @{
+                    Html.RenderAction("Seach", new { Page = 1, ProductCategoryName="", GroupCategoryId =0 });
+                }
+            </div>
+
+        </div>
+        <!-- end card-body -->
+
+    </div>
+    <!-- end card -->
+
+</div>
+
+
+
+
+
+<div class="modal" tabindex="-1" role="dialog" id="Modal_AddProdcutCategory">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="FormAdd_ProductCategory">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm mới Loại Sản Phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" onclick="Add_ProductCategoryHiden()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <input class="form-control" name="Name" type="text" required placeholder="Tên loại" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 ">
+                            <div class="form-group">
+                                <select name="ParentID" class="form-control txtSeachGroupProductCategory" required id="" title="không cần chọn nếu như nhóm cần thêm là nhóm gốc">
+                                    <option value="0">-Chọn nhóm loại-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-0">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <input class="form-control" name="MetaTitle" type="text" placeholder="Meta Title" title="phục vụ cho tối ưu hóa website trên công cụ tìm kiếm" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <input class="form-control" name="SeoTitle" type="text" placeholder=" Seo Title" title="phục vụ cho tối ưu hóa website trên công cụ tìm kiếm" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <input class="form-control" name="MetaKeywords" type="text" placeholder="Meta Keywords" title="phục vụ cho tối ưu hóa website trên công cụ tìm kiếm" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <input class="form-control" name="MetaDescriptions" type="text" required placeholder="Meta Descriptions" title="phục vụ cho tối ưu hóa website trên công cụ tìm kiếm" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="AddProductCategory()">Thêm Mới</button>
+                    <button type="button" class="btn btn-danger" onclick="Add_ProductCategoryHiden()">Thoát</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="Delete_ProductCategory">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">XÓA LOAI SẢN PHẨM</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CloseDeleteProductCategory()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn xóa loại sản phẩm không</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="DelProductCategory()">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" tabindex="-1" role="dialog" id="Modal_EditProdcutCategory">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="FormEdit_ProductCategory">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cập nhập loại sản phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" onclick="Add_ProductCategoryHiden()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                </div>
+                
+
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <img src="~/Assets/Admin/images/258fa142-team-al-1.jpg" />
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 row">
+                            <div class="form-group">
+                                <input class="form-control" id="txtimage" name="Name" type="text" required placeholder="Tên loại" />
+                            </div>
+                            <button id="btnimage">chọn ảnh</button>
+                        </div>
+                        
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <input class="form-control" name="Name" type="text" required placeholder="Tên loại" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 ">
+                            <div class="form-group">
+                                <select name="ParentID" class="form-control txtSeachGroupProductCategory" required id="" title="không cần chọn nếu như nhóm cần thêm là nhóm gốc">
+                                    <option value="0">-Chọn nhóm loại-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-0">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <input class="form-control" name="MetaTitle" type="text" placeholder="Meta Title" title="phục vụ cho tối ưu hóa website trên công cụ tìm kiếm" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <input class="form-control" name="SeoTitle" type="text" placeholder=" Seo Title" title="phục vụ cho tối ưu hóa website trên công cụ tìm kiếm" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <input class="form-control" name="MetaKeywords" type="text" placeholder="Meta Keywords" title="phục vụ cho tối ưu hóa website trên công cụ tìm kiếm" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <input class="form-control" name="MetaDescriptions" type="text" required placeholder="Meta Descriptions" title="phục vụ cho tối ưu hóa website trên công cụ tìm kiếm" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="AddProductCategory()">Thêm Mới</button>
+                    <button type="button" class="btn btn-danger" onclick="Add_ProductCategoryHiden()">Thoát</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    function Add_ProductCategoryShow() {
+        $("#Modal_AddProdcutCategory").show();
+    }
+
+    function Add_ProductCategoryHiden() {
+        $("#Modal_AddProdcutCategory").hide();
+    }
+
+    function Edit_ProductCategoryShow() {
+        $("#Modal_EditProdcutCategory").show();
+    }
+
+    function Edit_ProductCategoryHiden() {
+        $("#Modal_EditProdcutCategory").hide();
+    }
+
+    function CloseDeleteProductCategory() {
+        $("#Delete_ProductCategory").hide();
+    }
+</script>

@@ -1,0 +1,83 @@
+﻿@using Project.Models
+@using PagedList.Mvc
+@model  PagedList.IPagedList<GetUserModels>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th style="width:50px">ID</th>
+            <th>Họ và tên</th>
+            <th>Tài khoản</th>
+            <th>Emaill</th>
+            <th>Điện Thoại</th>
+            <th style="width:130px">Nhóm</th>
+
+
+            <th style="width:130px">Trang thái</th>
+            <th style="width:120px">Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+
+            int stt = 0;
+            foreach (GetUserModels us in Model)
+            {
+                stt++;
+                <tr>
+                    <th>
+                        @stt
+                    </th>
+
+                    <td>
+                        @us.Name
+                    </td>
+
+                    <td>@us.UserName</td>
+                    <td>@us.Email</td>
+                    <td>@us.Phone</td>
+                    
+                    <td>@us.GroupName</td>
+
+                    <td>
+                        @if (@us.Status == true)
+                        {
+
+                            <span class="textStatus">Kích Hoạt</span>
+
+
+                        }
+
+                        @if (@us.Status == false)
+                        {
+                            <span class="textNoStatus">Khóa TK</span>
+
+                        }
+
+
+                    </td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" onclick="GetUserById(@us.ID)"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        <a class="btn btn-danger btn-sm" onclick="ShowFromDeleteUser(@us.ID)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+<div class="row ">
+    <div class="offset-6 ">
+        @Html.PagedListPager(Model, Page => Url.Action("Seach", new { Page, FullName = "", UserName = ""}), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+   {
+       HttpMethod = "GET",
+       UpdateTargetId = "Table_User"
+   }
+
+           ))
+
+    </div>
+</div>
+<script type="text/javascript">
+
+</script>

@@ -1,0 +1,64 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+@Styles.Render("~/Content/css/Login")
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div class="modal-dialog text-center">
+        <div class="col-sm-9 main-section">
+
+            <div class="modal-content">
+                <div class="col-12 user-image">
+                    <img src="~/Assets/Backend/img/face.png" />
+                </div>
+                <div class="col-12 form-input">
+                    <div class="form-group row">
+                        <i class="fas fa-user position-absolute txt-mail"></i>
+                        <input type="text" name="name" value="" class="form-control" placeholder="Tài Khoản" id="txtUserName" />
+                    </div>
+                    <div class="form-group row">
+                        <i class="fas fa-lock position-absolute txt-pass"></i>
+                        <input type="password" name="name" value="" class="form-control" placeholder="Mật Khẩu" id="txtPassword" />
+                    </div>
+                    <button class="btn btn-success" onclick="LoginAdmin()">Đăng Nhập</button>
+                </div>
+                @*<div class="col-12 forgot"><a href="#">Quên Mật Khẩu ?</a></div>*@
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<!-- Modal -->
+
+<div class="modal" tabindex="-1" role="dialog" id="LoginErorr">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color:#dac5c5;">
+            <div class="modal-header">
+                <h5 class="modal-title">Lỗi Đăng Nhập</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="TextLoginErorr" style="color:black; background-color:white;">
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/bundles/bootstrap")
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@Scripts.Render("~/bundles/Script")

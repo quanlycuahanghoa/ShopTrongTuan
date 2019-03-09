@@ -1,0 +1,180 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="breadcrumb-holder">
+            <h1 class="main-title float-left">THÊM MỚI LOẠI SẢN PHẨM</h1>
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item">Trang chủ</li>
+                <li class="breadcrumb-item active">Người dùng</li>
+                <li class="breadcrumb-item active">Danh sách</li>
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+        <div class="card mb-3">
+
+            <div class="card-header">
+                <span class="pull-right">
+                    <button class="btn btn-primary btn-sm" onclick="AddProductCategory()">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i> Thêm ngay
+                    </button>
+                    <button class="btn btn-primary btn-sm" id="btnAddEmageProductCategory">
+                        <i class="fa fa-caret-square-o-down bigfonts" aria-hidden="true"></i> Chọn ảnh 
+                    </button>
+                </span>
+            </div>
+            <!-- end card-header -->
+            <!-- <div class="card-bodycard-body"> -->
+
+            <div class="container-fluid mt-3 card-body">
+                <form id="FormAdd_ProductCategory">
+                    <div class="row ">
+
+                        <div class="card col-md-4 pr-1">
+                            <div class="card-header card_header">
+                                HÌNH ẢNH LOẠI SẢN PHẨM
+                            </div>
+                            <div class="card-body">
+                                <div class="col-12 col-xl-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="row">
+                                        <div class="w-100 h-25 pl-2 pr-2" id="ImageAddProductCategory">
+                                            <img src="/Uploads/images/Hoa%20Ch%C6%A1i%20T%E1%BA%BFt.jpg" style="width: 100%; height: 100%; ">
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-12 col-xl-12 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="hidden" name="image" value="" id="txtAddImageProductCategory" />
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <input class="form-control" name="AltImage" type="text" placeholder="Mô tả hình ảnh" id="" />
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="card col-md-4 pr-1">
+                            <div class="card-header card_header">
+                                THÔNG TIN LOẠI SẢN PHẨM
+                            </div>
+                            <div class="card-body">
+                                <div class="col-12 col-xl-12 col-sm-12 col-md-12 col-lg-12">
+
+                                    <div class="form-group">
+                                        <input class="form-control" name="Name" type="text" placeholder="Tên loại sản phẩm" id="txtAddProductCategoryName" />
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-12 col-sm-12 col-md-12 col-lg-12">
+
+                                    <div class="form-group">
+                                        <select name="ParentID" class="form-control"  id="txtAddProductCategoryParentId">
+                                            <option value="">Chọn nhóm loại sản phẩm -</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-12 col-xl-12 col-sm-12 col-md-12 col-lg-12">
+
+                                    <div class="form-group">
+                                        <input class="form-control" name="DisplayOrder" type="number" placeholder="Thứ tự hiển thị" id="txtSeachNameUser" />
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-xl-12 col-sm-12 col-md-12 col-lg-12">
+
+                                    <div class="form-group">
+                                        <select name="ShowOnHome" class="form-control" required id="txtAddProductCategoryParentId">
+                                            <option value="true">hiển thị lên trang chủ  </option>
+                                            <option value="false">không hiển thị lên trang chủ </option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card col-md-4 pl-1">
+                            <div class="card-header card_header">
+                                THÔNG TIN SEO LOẠI SẢN PHẨM
+                            </div>
+                            <div class="card-body">
+                                <div class="col-12 col-xl-12 col-sm-12 col-md-12 col-lg-12">
+
+                                    <div class="form-group">
+                                        <input class="form-control" name="MetaTitle" type="text" placeholder="Meta Title" id="txtSeachNameUser" />
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-12 col-sm-12 col-md-12 col-lg-12">
+
+                                    <div class="form-group">
+                                        <input class="form-control" name="SeoTitle" type="text" placeholder="Seo Title" id="txtSeachNameUser" />
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-12 col-sm-12 col-md-12 col-lg-12">
+
+                                    <div class="form-group">
+                                        <input class="form-control" name="MetaKeywords" type="text" placeholder="Meta KeyWord" id="txtSeachNameUser" />
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-12 col-sm-12 col-md-12 col-lg-12">
+
+                                    <div class="form-group">
+                                        <input class="form-control" name="MetaDescriptions" type="text" placeholder="Meta Description" id="txtSeachNameUser" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="card col-md-12 pr-1">
+                            <div class="card-header card_header">
+                                BÀI VIẾT GIỚI THIỆU LOẠI SẢN PHẨM
+                            </div>
+                            <div class="card-body">
+                                <input type="hidden" name="Descriptions" id="txtAddDescriptionProductCategory" />
+                                <input id="txtAddDescriptionProductCategoryCkeditor" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+
+        </div>
+        <!-- end card-body -->
+
+    </div>
+    <!-- end card -->
+
+</div>
+
+
+@*<div>
+        <input id="txtimage " class="form-control pt-4" />
+
+    </div>*@
