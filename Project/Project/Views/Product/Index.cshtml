@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="breadcrumb-holder">
+            <h1 class="main-title float-left">Quản lý người dùng</h1>
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item">Trang chủ</li>
+                <li class="breadcrumb-item active">Người dùng</li>
+                <li class="breadcrumb-item active">Danh sách</li>
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<div class="alert alert-success " role="alert">
+    <div class="row ">
+        <div class="col-12 col-xl-3 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <input class="form-control" name="NameProduct" type="text" placeholder="Họ Tên" id="txtSeachNameProduct" />
+            </div>
+        </div>
+        <div class="col-12 col-xl-3 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <input class="form-control" name="ProductName" type="text" placeholder="Tài Khoản" id="txtSeachProductName" />
+            </div>
+        </div>
+        <div class="col-12 col-xl-3 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <input class="form-control" name="PhoneProduct" type="text" placeholder="Điện Thoại" id="txtSeachPhoneProduct" />
+            </div>
+        </div>
+        <div class="col-12 col-xl-3 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+
+                <select name="role_id" class="form-control" id="txtSeachGroupProduct">
+                    <option value="0">- Chọn Nhóm -</option>
+
+                </select>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+
+        <button class="btn btn-primary offset-5" onclick="SeachProduct()">
+            <i class="fa fa-search" aria-hidden="true"></i> Tìm kiếm người dùng
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+        <div class="card mb-3">
+
+            <div class="card-header">
+                <span class="pull-right">
+                    <button class="btn btn-primary btn-sm" onclick="Datahiden()">
+                        <i class="fa fa-Product-plus" aria-hidden="true"></i> Thêm mới
+                    </button>
+                    <button class="btn btn-primary btn-sm" onclick="window.location='/GroupProduct/Index'">
+                        <i class="fa fa-caret-square-o-down bigfonts" aria-hidden="true"></i> Nhóm ND
+                    </button>
+                </span>
+                <h3><i class="fa fa-Product"></i> Số Lượng</h3>
+            </div>
+            <!-- end card-header -->
+            <!-- <div class="card-bodycard-body"> -->
+
+
+            <div class="table-responsive" id="Table_Product">
+             
+            </div>
+
+        </div>
+        <!-- end card-body -->
+
+    </div>
+    <!-- end card -->
+
+</div>

@@ -91,6 +91,8 @@ namespace Project.Controllers
                         userModels.CreatedBy = us.CreatedBy;
                         userModels.ModifiedDate = (DateTime)us.ModifiedDate;
                         userModels.ModifiedBy = us.ModifiedBy;
+
+
                         UserGroup userGroup = con.UserGroups.Find(us.GroupId); 
                         if(userGroup != null)
                         {

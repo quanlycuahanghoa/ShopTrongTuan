@@ -25,6 +25,14 @@ namespace Project.Controllers
         /// tìm kiếm thông tin của loại sản phẩm 
         /// </summary>
         DbConnection con = new DbConnection();
+        
+        /// <summary>
+        /// Phan Đình Kiên : Tìm kiếm thông tin loại sản phẩm
+        /// </summary>
+        /// <param name="Page">trang cần hiển thị </param>
+        /// <param name="ProductCategoryName">tên của loại sản phẩm </param>
+        /// <param name="GroupCategoryId">Tên nhóm của loại sản phẩm</param>
+        /// <returns></returns>
         [HttpGet]
         [AuthenticationFilter]
         public PartialViewResult Seach(int Page, string ProductCategoryName, long GroupCategoryId)
@@ -95,6 +103,13 @@ namespace Project.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Phan Đình Kiên : Tìm kiếm thông tin của loại sản phẩm 
+        /// </summary>
+        /// <param name="ProductCategoryId">Mã của loại sản phẩm cần truyền vào </param>
+        /// <returns></returns>
+        [AuthenticationFilter]
         public ActionResult Update(long ProductCategoryId)
         {
             try
@@ -140,13 +155,65 @@ namespace Project.Controllers
             
         }
 
+        /// <summary>
+        /// Phan Đình Kiên : Trang Thêm Mới thông tin của loại sản phẩm 
+        /// </summary>
+        /// <returns></returns>
+        [AuthenticationFilter]
         public ActionResult Create()
         {
             return View(); 
         }
 
-       
+        /// <summary>
+        /// Phan Đình Kiên : thêm mới thông tin loại sản phẩm 
+        /// </summary>
+        /// <param name="addProductCategory">Thông tin loại sản phẩm sau khi được thêm </param>
+        /// <returns></returns>
+        [ValidateInput(false)]
+        [HttpPost]
+        [AuthenticationFilter]
+        public int AddProductCategory(AddProductCategory addProductCategory)
+        {
+            try
+            {
+                LoginUserModels loginUserModels = Session["Login"] as LoginUserModels;
+                ProductCategory productCategory = new ProductCategory()
+                {
+                    Name = addProductCategory.Name,
+                    SeoTitle = addProductCategory.SeoTitle,
+                    MetaDescriptions = addProductCategory.MetaDescriptions,
+                    MetaKeywords = addProductCategory.MetaKeywords,
+                    MetaTitle = addProductCategory.MetaTitle,
+                    ParentID = addProductCategory.ParentID,
+                    Descriptions = addProductCategory.Descriptions,
+                    Image = addProductCategory.Image,
+                    AltImage = addProductCategory.AltImage,
+                    DisplayOrder = addProductCategory.DisplayOrder,
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = loginUserModels.Name,
+                    ModifiedDate = DateTime.Now,
+                    ModifiedBy = loginUserModels.Name,
+                    Active = true,
+                    ShowOnHome = addProductCategory.ShowOnHome
 
+                };
+                con.ProductCategories.Add(productCategory);
+                con.SaveChanges();
+                return Constants.RETURN_TRUE;
+            }
+            catch
+            {
+                return Constants.RETURN_FALSE;
+            }
+        }
+
+
+        /// <summary>
+        /// Phan Đình Kiên : lấy thông tin của loại sản phẩm đưa vào combobox 
+        /// </summary>
+        /// <returns></returns>
+        [AuthenticationFilter]
         public JsonResult GetSelectProductCategory()
         {
             try
@@ -175,50 +242,12 @@ namespace Project.Controllers
             }
         }
 
+        
         /// <summary>
-        /// thêm mới thông tin của loại sản phẩm 
+        /// Phan Đình Kiên : Xóa thông tin của loại sản phẩm 
         /// </summary>
-        /// <param name="addProductCategory">loại sản phẩm sau khi đã thêm</param>
+        /// <param name="ProductCategoryId">Mã của loại sản phẩm</param>
         /// <returns></returns>
-        [ValidateInput(false)]
-        [HttpPost]
-        public int AddProductCategory(AddProductCategory addProductCategory)
-        {
-            try
-            {
-                LoginUserModels loginUserModels = Session["Login"] as LoginUserModels;
-                ProductCategory productCategory = new ProductCategory()
-                {
-                    Name = addProductCategory.Name,
-                    SeoTitle = addProductCategory.SeoTitle,
-                    MetaDescriptions = addProductCategory.MetaDescriptions,
-                    MetaKeywords = addProductCategory.MetaKeywords,
-                    MetaTitle = addProductCategory.MetaTitle,
-                    ParentID = addProductCategory.ParentID,
-                    Descriptions = addProductCategory.Descriptions, 
-                    Image = addProductCategory.Image,
-                    AltImage = addProductCategory.AltImage, 
-                    DisplayOrder = addProductCategory.DisplayOrder, 
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = loginUserModels.Name,
-                    ModifiedDate = DateTime.Now,
-                    ModifiedBy = loginUserModels.Name,
-                    Active = true,
-                    ShowOnHome = addProductCategory.ShowOnHome 
-
-                };
-                con.ProductCategories.Add(productCategory);
-                con.SaveChanges();
-                return Constants.RETURN_TRUE;
-
-
-            }
-            catch
-            {
-                return Constants.RETURN_FALSE;
-            }
-        }
-
         public int DeleteProductCategory(long ProductCategoryId)
         {
             try
@@ -241,12 +270,34 @@ namespace Project.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Phan Đình Kiên : sửa thông tin của loại sản phẩm 
+        /// </summary>
+        /// <param name="editProductCategoryModels">Thông tin của loại sản phẩm sau khi được chỉnh sửa</param>
+        /// <returns></returns>
         public int EditProductCategory(EditProductCategoryModels editProductCategoryModels)
         {
             try
             {
+                LoginUserModels loginUserModels = Session["Login"] as LoginUserModels;
                 var Data = con.ProductCategories.Find(editProductCategoryModels.ParentID);
 
+                if(Data!= null)
+                {
+                    Data.Name = editProductCategoryModels.Name;
+                    Data.ParentID = editProductCategoryModels.ParentID;
+                    Data.MetaDescriptions = editProductCategoryModels.MetaDescriptions;
+                    Data.MetaKeywords = editProductCategoryModels.MetaKeywords;
+                    Data.MetaTitle = editProductCategoryModels.MetaTitle;
+                    Data.Image = editProductCategoryModels.Image;
+                    Data.AltImage = editProductCategoryModels.AltImage;
+                    Data.DisplayOrder = editProductCategoryModels.DisplayOrder;
+                    Data.ModifiedDate = DateTime.Now;
+                    Data.ModifiedBy = loginUserModels.Name;
+                    Data.Descriptions = editProductCategoryModels.Descriptions; 
+
+                }
                 return Constants.RETURN_TRUE; 
             }
             catch
@@ -255,10 +306,7 @@ namespace Project.Controllers
             }
         }
 
-        //public int EditProductCategory()
-        //{
-
-        //}
+        
 
     }
 }
